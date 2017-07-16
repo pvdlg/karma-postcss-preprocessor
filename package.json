@@ -14,7 +14,7 @@
     "@metahub/eslint-config": "^1.5.0",
     "@metahub/karma-jasmine-jquery": "^1.0.0",
     "autoprefixer": "^7.1.2",
-    "ava": "^0.20.0",
+    "ava": "^0.21.0",
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-preset-env": "^1.6.0",
@@ -30,7 +30,7 @@
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-promise": "^3.5.0",
-    "fs-extra": "^3.0.1",
+    "fs-extra": "^4.0.0",
     "handlebars": "^4.0.10",
     "jasmine-core": "^2.6.4",
     "jasmine-jquery": "^2.1.1",
@@ -52,15 +52,9 @@
   "engines": {
     "node": ">=4"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "homepage": "https://github.com/vanduynslagerp/karma-postcss-preprocessor#readme",
-  "keywords": [
-    "karma-plugin",
-    "karma-preprocessor",
-    "postcss"
-  ],
+  "keywords": ["karma-plugin", "karma-preprocessor", "postcss"],
   "license": "MIT",
   "main": "lib/index.js",
   "repository": {
