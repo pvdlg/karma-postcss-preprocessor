@@ -1,0 +1,9 @@
+describe('{{{ description }}}', () => {
+  beforeAll(() => {
+    jasmine.getFixtures().fixturesPath = 'base';
+  });
+
+  it('shoud be compiled by Karma and equals to externaly compiled css', () => {
+    expect(readFixtures('{{{ fixture }}}')).toBe('{{{ expected }}}');
+  });
+});

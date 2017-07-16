@@ -1,0 +1,80 @@
+{
+  "name": "@metahub/karma-postcss-preprocessor",
+  "description": "Karma preprocessor to compile css files with postcss",
+  "version": "1.0.0",
+  "author": "Pierre Vanduynslager",
+  "bugs": {
+    "url": "https://github.com/vanduynslagerp/karma-postcss-preprocessor/issues"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "postcss": "^6.0.6"
+  },
+  "devDependencies": {
+    "@metahub/eslint-config": "^1.5.0",
+    "@metahub/karma-jasmine-jquery": "^1.0.0",
+    "autoprefixer": "^7.1.2",
+    "ava": "^0.20.0",
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "codecov": "^2.2.0",
+    "cssnano": "^3.10.0",
+    "eslint": "^4.2.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-ava": "^4.2.1",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jasmine": "^2.7.1",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "fs-extra": "^3.0.1",
+    "handlebars": "^4.0.10",
+    "jasmine-core": "^2.6.4",
+    "jasmine-jquery": "^2.1.1",
+    "js-string-escape": "^1.0.1",
+    "karma": "^1.7.0",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "nodeify": "^1.0.1",
+    "nyc": "^11.0.3",
+    "p-event": "^1.3.0",
+    "postcss-mixins": "^6.0.1",
+    "postcss-scss": "^1.0.2",
+    "postcss-simple-vars": "^4.0.0",
+    "prettier": "^1.5.2",
+    "rimraf": "^2.6.1",
+    "uuid": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "files": [
+    "lib"
+  ],
+  "homepage": "https://github.com/vanduynslagerp/karma-postcss-preprocessor#readme",
+  "keywords": [
+    "karma-plugin",
+    "karma-preprocessor",
+    "postcss"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanduynslagerp/karma-postcss-preprocessor.git"
+  },
+  "scripts": {
+    "clean": "rimraf test/fixtures/.tmp && rimraf coverage && rimraf .nyc_output",
+    "compile": "rimraf lib && babel src --source-maps --out-dir lib",
+    "lint": "eslint src test package.json",
+    "pretest": "npm run clean && npm run compile && npm run lint",
+    "test": "nyc ava -v && nyc report --reporter=lcov",
+    "codecov": "codecov",
+    "prepare": "npm run compile",
+    "prepublishOnly": "npm run test"
+  }
+}
