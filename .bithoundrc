@@ -1,9 +1,0 @@
-{
-  "critics": {
-    "lint": {
-      "engine": "eslint",
-      "configLocation": ".eslintrc",
-      "ignoreLocation": ".eslintignore"
-    }
-  }
-}

@@ -1,9 +1,0 @@
-$color: purple;
-
-@mixin text-purple() {
-  color: $color;
-}
-
-.test {
-  @include text-purple();
-}
