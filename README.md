@@ -34,8 +34,8 @@ In addition the preprocessor accept a `transformPath` function, to rewrite the p
 ### Standard
 
 ```js
-import autoprefixer from 'autoprefixer';
-import cssnano from 'cssnano';
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
 module.exports = function(config) {
   config.set({
@@ -65,8 +65,8 @@ module.exports = function(config) {
 See [configured preprocessors](http://karma-runner.github.io/1.0/config/preprocessors.html).
 
 ```js
-import autoprefixer from 'autoprefixer';
-import cssnano from 'cssnano';
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
 module.exports = function(config) {  
   config.set({
@@ -108,8 +108,8 @@ npm install node-sass @metahub/karma-sass-preprocessor --save-dev
 ```
 
 ```js
-import autoprefixer from 'autoprefixer';
-import cssnano from 'cssnano';
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
 module.exports = function(config) {
   config.set({
