@@ -125,7 +125,7 @@ module.exports = function(config) {
       options: {
         sourceMap: true,
       },
-
+    },
     postcssPreprocessor: {
       options: {
         map: true,
