@@ -1,0 +1,7 @@
+@import 'sub-partial';
+
+
+@define-mixin text-bg-color $color {
+  color: #fff;
+  @mixin bg-color $color;
+}

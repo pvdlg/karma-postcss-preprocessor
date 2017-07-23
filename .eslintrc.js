@@ -8,4 +8,6 @@ module.exports = {
     '@metahub/eslint-config/prettier-config',
   ],
   parserOptions: {sourceType: 'module'},
+  env: {jquery: true, browser: true},
+  globals: {readFixtures: true, appendSetFixtures: true},
 };
