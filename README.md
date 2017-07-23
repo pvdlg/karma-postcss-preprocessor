@@ -39,12 +39,11 @@ const cssnano = require('cssnano');
 
 module.exports = function(config) {
   config.set({
-    files: ['src/**/*.css', 'test/fixtures/**/*.css'],
+    files: ['src/sass/main.css'],
 
     plugins: ['@metahub/karma-postcss-preprocessor', 'karma-*'],
     preprocessors: {
-      'src/**/*.css': ['postcss'],
-      'test/fixtures/**/*.css': ['postcss'],
+      '**/*.css': ['postcss'],
     },
 
     postcssPreprocessor: {
@@ -53,13 +52,15 @@ module.exports = function(config) {
         map: true,
         plugins: [autoprefixer, cssnano],
       },
-      // File test/fixtures/myStyle.ccs will be accessible in the unit test on path base/styles/myStyle.css
+      // File test/fixtures/main.ccs will be accessible in the unit test on path base/styles/main.css
       transformPath: filePath => filePath.replace('test/fixtures/', 'styles/')
     },
   });
 };
 ```
 **_Note: Karma can auto-load plugins named `karma-*` (see [plugins](http://karma-runner.github.io/1.0/config/plugins.html)). Unfortunatly it doesn't work with [scoped packages](https://docs.npmjs.com/misc/scope), therefore `@metahub/karma-postcss-preprocessor` has to be explicitly added to the `plugins` configuration. In order to continue to automatically load other plugins you can add `karma-*` to the `plugins` configuration._**
+
+**_Note: `@metahub/karma-postcss-preprocessor` embed its own watcher to monitor imported dependencies, therefore only the main entry point has to be configured in Karma. If Karma is configured with `autoWatch: true`, the modification of an imported css file will trigger a new build and test run._**
 
 ### Configured Preprocessors
 See [configured preprocessors](http://karma-runner.github.io/1.0/config/preprocessors.html).
@@ -70,7 +71,7 @@ const cssnano = require('cssnano');
 
 module.exports = function(config) {  
   config.set({
-    files: ['src/**/*.css', 'test/fixtures/**/*.css'],
+    files: ['src/sass/main.css', 'test/fixtures/myFixture.css'],
 
     plugins: ['@metahub/karma-postcss-preprocessor', 'karma-*'],
     preprocessors: {
@@ -85,7 +86,7 @@ module.exports = function(config) {
           plugins: [autoprefixer, cssnano]
           map: true,
         },
-        // File test/fixtures/myStyle.ccs will be accessible in the unit test on path test/fixtures/myStyle.min.ccs
+        // File test/fixtures/myFixture.ccs will be accessible in the unit test on path test/fixtures/myFixture.min.ccs
         transformPath: filePath => filePath.replace(/\.css$/, '.min.css')
       },
       postcss_2: {
@@ -113,12 +114,12 @@ const cssnano = require('cssnano');
 
 module.exports = function(config) {
   config.set({
-    files: ['src/**/*.+(scss|sass)', 'test/fixtures/**/*.+(scss|sass)'],
+    files: ['src/sass/main.scss', 'test/fixtures/myFixture.scss'],
 
     plugins: ['@metahub/karma-sass-preprocessor', '@metahub/karma-postcss-preprocessor', 'karma-*'],
     preprocessors: {
-      'src/**/*.+(scss|sass)': ['sass', 'postcss'],
-      'test/fixtures/**/*.+(scss|sass)': ['sass', 'postcss'],
+      'src/**/*.scss': ['sass', 'postcss'],
+      'test/fixtures/**/*.scss': ['sass', 'postcss'],
     },
 
     sassPreprocessor: {

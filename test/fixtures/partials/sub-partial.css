@@ -1,0 +1,3 @@
+@define-mixin bg-color $color {
+  background-color: $color;
+}

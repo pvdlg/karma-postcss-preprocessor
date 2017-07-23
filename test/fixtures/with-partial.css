@@ -1,9 +1,7 @@
+@import 'partial';
+
 $color: purple;
 $height: 20px;
-
-@define-mixin text-purple {
-  color: $color;
-}
 
 .test {
   display: flex;
@@ -11,5 +9,5 @@ $height: 20px;
   user-select: none;
   height: $height;
   background: linear-gradient(to bottom, white, black);
-  @mixin text-purple;
+  @mixin text-bg-color;
 }
