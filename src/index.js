@@ -82,18 +82,22 @@ function createPostcssPreprocessor(args, config, logger, server) {
                   log.debug('Watching "%s"', includedFile);
                   dependencies[includedFile] = [fullPath];
                 } else if (dependencies[includedFile].indexOf(fullPath) === -1) {
-                  dependencies[includedFile].push(includedFile);
+                  dependencies[includedFile].push(fullPath);
                 }
               }
             }
 
             for (let i = 0, keys = Object.keys(dependencies), {length} = keys; i < length; i++) {
               if (includedFiles.indexOf(keys[i]) === -1) {
-                dependencies[keys[i]].splice(i, 1);
-                if (!dependencies[keys[i]].length) {
-                  stopWatching.push(keys[i]);
-                  log.debug('Stop watching "%s"', keys[i]);
-                  delete dependencies[keys[i]];
+                const index = dependencies[keys[i]].indexOf(fullPath);
+
+                if (index !== -1) {
+                  dependencies[keys[i]].splice(index, 1);
+                  if (!dependencies[keys[i]].length) {
+                    stopWatching.push(keys[i]);
+                    log.debug('Stop watching "%s"', keys[i]);
+                    delete dependencies[keys[i]];
+                  }
                 }
               }
             }

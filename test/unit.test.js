@@ -53,25 +53,25 @@ test('Compile css file with sourcemap (options.map)', async t => {
 });
 
 test('Compile scss file with sourcemap (options.sourceMap) and custom preprocessor', async t => {
-  const fixture = 'test/fixtures/basic.css';
+  const fixture = 'test/fixtures/basic.custom.css';
   const options = {plugins: [atImport, mixins, simpleVars, cssnano], sourceMap: true};
   const {preprocessor, debug} = mockPreprocessor({options});
   const file = {originalPath: fixture};
 
   t.is((await preprocessor(await readFile(fixture), file)).toString(), await compile(fixture, options));
   t.true(debug.firstCall.calledWith(match('Processing'), fixture));
-  t.is(path.resolve(file.path), path.resolve('test/fixtures/basic.css'));
+  t.is(path.resolve(file.path), path.resolve('test/fixtures/basic.custom.css'));
 });
 
 test('Compile scss file with sourcemap (options.map) and custom preprocessor', async t => {
-  const fixture = 'test/fixtures/basic.css';
+  const fixture = 'test/fixtures/basic.custom.css';
   const options = {plugins: [atImport, mixins, simpleVars, cssnano], map: true};
   const {preprocessor, debug} = mockPreprocessor({options});
   const file = {originalPath: fixture};
 
   t.is((await preprocessor(await readFile(fixture), file)).toString(), await compile(fixture, options));
   t.true(debug.firstCall.calledWith(match('Processing'), fixture));
-  t.is(path.resolve(file.path), path.resolve('test/fixtures/basic.css'));
+  t.is(path.resolve(file.path), path.resolve('test/fixtures/basic.custom.css'));
 });
 
 test('Compile scss file with partial import', async t => {
@@ -121,7 +121,7 @@ test('Compile css file with custom transformPath', async t => {
 });
 
 test('Compile css file with custom transformPath and custom preprocessor', async t => {
-  const fixture = 'test/fixtures/basic.txt';
+  const fixture = 'test/fixtures/basic.custom.txt';
   const options = {plugins: [atImport, mixins, simpleVars, cssnano]};
   const transformPath = spy(filePath => filePath.replace(/\.(txt)$/, '.css').replace('fixtures/', ''));
   const {preprocessor, debug} = mockPreprocessor({transformPath, options});
@@ -130,7 +130,7 @@ test('Compile css file with custom transformPath and custom preprocessor', async
   t.is((await preprocessor(await readFile(fixture), file)).toString(), await compile(fixture, options));
   t.true(debug.firstCall.calledWith(match('Processing'), fixture));
   t.true(transformPath.calledOnce);
-  t.is(path.resolve(file.path), path.resolve('test/basic.css'));
+  t.is(path.resolve(file.path), path.resolve('test/basic.custom.css'));
 });
 
 test('Log error on invalid css file', async t => {
@@ -305,6 +305,46 @@ test('Do not remove dependency from watcher when unreferenced, if another file s
   t.true(debug.calledTwice);
 });
 
+test('Do not remove dependency from watcher when different files have differents childs', async t => {
+  const dir = path.resolve(tmp());
+  const fixture = path.join(dir, 'with-partial.css');
+  const otherFixture = path.join(dir, 'other-with-partial.css');
+  const includePath = path.join(dir, 'partials');
+  const partial = path.join(includePath, 'partial.css');
+  const partialAlt = path.join(includePath, 'partial-alt.css');
+  const subPartial = path.join(includePath, 'sub-partial.css');
+  const options = {plugins: [atImport({path: [includePath]}), mixins, simpleVars, cssnano]};
+  const {preprocessor, add, debug, unwatch} = mockPreprocessor(
+    {},
+    {
+      autoWatch: true,
+      files: [{pattern: fixture, watched: true}, {pattern: otherFixture, watched: true}],
+      postcssPreprocessor: {options},
+    }
+  );
+  const file = {originalPath: fixture};
+  const otherFile = {originalPath: otherFixture};
+
+  await Promise.all([
+    copy('test/fixtures/partials/partial.css', partial),
+    copy('test/fixtures/partials/partial.css', partialAlt),
+    copy('test/fixtures/partials/sub-partial.css', subPartial),
+    copy('test/fixtures/with-partial.css', fixture),
+    copy('test/fixtures/with-partial.css', otherFixture),
+  ]);
+  await outputFile(
+    fixture,
+    (await readFile(fixture)).toString().replace(`@import 'partial';`, `@import 'partial-alt';`)
+  );
+  await preprocessor(await readFile(fixture), file);
+  add.reset();
+  debug.reset();
+  await preprocessor(await readFile(otherFixture), otherFile);
+  t.true(add.calledOnce);
+  t.true(unwatch.notCalled);
+  t.true(debug.calledTwice);
+});
+
 test('Call refreshFiles when dependency is modified', async t => {
   const dir = path.resolve(tmp());
   const fixture = path.join(dir, 'with-partial.css');
@@ -366,7 +406,6 @@ test('Call refreshFiles when dependency is deleted and added', async t => {
   info.reset();
   refreshFiles.reset();
   await t.throws(preprocessor(await readFile(fixture), file), Error);
-
   const cpy = waitFor(watcher, 'add');
 
   await copy('test/fixtures/partials/partial.css', partial);
