@@ -1,7 +1,7 @@
 {
   "name": "@metahub/karma-postcss-preprocessor",
   "description": "Karma preprocessor to compile css files with postcss with sourcemap and watch support",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": "Pierre Vanduynslager",
   "bugs": {
     "url": "https://github.com/vanduynslagerp/karma-postcss-preprocessor/issues"
@@ -50,7 +50,7 @@
     "prettier": "^1.5.2",
     "proxyquire": "^1.8.0",
     "rimraf": "^2.6.1",
-    "sinon": "^2.3.8",
+    "sinon": "^2.4.1",
     "uuid": "^3.1.0"
   },
   "peerDependencies": {
