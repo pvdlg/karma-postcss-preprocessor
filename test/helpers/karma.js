@@ -18,7 +18,7 @@ const KARMA_CONFIG = {
   },
   babelPreprocessor: {options: {babelrc: false, presets: ['es2015'], sourceMap: 'inline'}},
   colors: true,
-  logLevel: constants.LOG_DISABLED,
+  logLevel: constants.LOG_DISABLE,
   browsers: ['PhantomJS'],
   plugins: ['@metahub/karma-jasmine-jquery', 'karma-*', karmaPreprocessor],
 };
