@@ -6,8 +6,19 @@ import cssnano from 'cssnano';
 import mixins from 'postcss-mixins';
 import simpleVars from 'postcss-simple-vars';
 import atImport from 'postcss-import';
+import {stub} from 'sinon';
 import {run, watch, waitForRunComplete} from './helpers/karma';
 import {tmp} from './helpers/utils';
+
+let stubWrite;
+
+test.before(() => {
+  stubWrite = stub(process.stdout, 'write');
+});
+
+test.after(() => {
+  stubWrite.restore();
+});
 
 test('Compile css file', async t => {
   const {success, error, disconnected} = await run(['test/fixtures/basic.css', 'test/fixtures/styles.test.js'], {
