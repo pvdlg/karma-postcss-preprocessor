@@ -2,6 +2,7 @@ import path from 'path';
 import {merge} from 'lodash';
 import {FSWatcher} from 'chokidar';
 import nodeify from 'nodeify';
+import sourceMappingURL from 'source-map-url';
 import postcss from 'postcss';
 
 /**
@@ -53,9 +54,8 @@ function createPostcssPreprocessor(args, config, logger, server) {
 
     // Inline source maps
     if (opts.sourceMap || opts.map) {
-      opts.map = {inline: true};
+      opts.map = {inline: false};
     }
-
     opts.from = file.originalPath;
     opts.to = file.originalPath;
 
@@ -109,6 +109,14 @@ function createPostcssPreprocessor(args, config, logger, server) {
               watcher.unwatch(stopWatching);
             }
           }
+          if (opts.map && result.map) {
+            file.sourceMap = JSON.parse(result.map.toString());
+            return `${sourceMappingURL.removeFrom(
+              result.css
+            )}\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,${Buffer.from(
+              JSON.stringify(file.sourceMap)
+            ).toString('base64')}\n`;
+          }
           return result.css;
         })
         .catch(err => {
@@ -124,6 +132,4 @@ function createPostcssPreprocessor(args, config, logger, server) {
 createPostcssPreprocessor.$inject = ['args', 'config', 'logger', 'emitter'];
 
 // Export preprocessor
-module.exports = {
-  'preprocessor:postcss': ['factory', createPostcssPreprocessor],
-};
+module.exports = {'preprocessor:postcss': ['factory', createPostcssPreprocessor]};

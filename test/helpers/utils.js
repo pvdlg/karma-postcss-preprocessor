@@ -2,6 +2,7 @@ import path from 'path';
 import {readFile} from 'fs-extra';
 import uuid from 'uuid';
 import pEvent from 'p-event';
+import sourceMappingURL from 'source-map-url';
 import postcss from 'postcss';
 
 /**
@@ -41,25 +42,38 @@ export function sleep(delay) {
 export function waitFor(emitter, event, timeout = 5000) {
   return pEvent(emitter, event, {timeout});
 }
-/* eslint-enable no-magic-numbers */
 
+/**
+ * @typedef {Object} Compiled
+ * @property {string} css the compiled css code.
+ * @property {Object} map the sourcemap resulting from the compilation.
+ */
+
+/* eslint-enable no-magic-numbers */
 /**
  * Compile a css file and return the result as a `string`.
  *  
  * @method compile
  * @param {string} file path of the file to compile.
  * @param {Object} [options={}] postcss options.
- * @return {string} compiled css.
+ * @return {Compiled} compiled code and source map.
  */
 export async function compile(file, options = {}) {
   if (options.sourceMap || options.map) {
-    options.map = {inline: true};
+    options.map = {inline: false};
   }
+  options.from = path.resolve(file);
+  options.to = path.resolve(file);
+  const {css, map} = await postcss(options.plugins || []).process(await readFile(path.resolve(file)), options);
 
-  const result = await postcss(options.plugins || []).process(
-    await readFile(path.resolve(file)),
-    Object.assign(options, {from: path.resolve(file), to: path.resolve(file)})
-  );
-
-  return result.css.toString();
+  return {
+    css: map
+      ? `${sourceMappingURL.removeFrom(
+          css
+        )}\n//# source${''}MappingURL=data:application/json;charset=utf-8;base64,${Buffer.from(
+          JSON.stringify(JSON.parse(map.toString()))
+        ).toString('base64')}\n`
+      : css,
+    map: map ? JSON.parse(map.toString()) : undefined,
+  };
 }
