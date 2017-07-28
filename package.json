@@ -13,7 +13,7 @@
     "source-map-url": "^0.4.0"
   },
   "devDependencies": {
-    "@metahub/eslint-config": "^1.5.1",
+    "@metahub/eslint-config": "^1.6.0",
     "@metahub/karma-jasmine-jquery": "^1.0.0",
     "ava": "^0.21.0",
     "babel-cli": "^6.24.1",
@@ -27,12 +27,12 @@
     "eslint-plugin-ava": "^4.2.1",
     "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jasmine": "^2.8.0",
+    "eslint-plugin-jasmine": "^2.8.2",
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-promise": "^3.5.0",
     "fs-extra": "^4.0.0",
-    "jasmine-core": "^2.6.4",
+    "jasmine-core": "^2.7.0",
     "jasmine-jquery": "^2.1.1",
     "karma": "^1.7.0",
     "karma-babel-preprocessor": "^6.0.1",
@@ -47,7 +47,7 @@
     "postcss-mixins": "^6.0.1",
     "postcss-scss": "^1.0.2",
     "postcss-simple-vars": "^4.0.0",
-    "prettier": "^1.5.2",
+    "prettier": "^1.5.3",
     "proxyquire": "^1.8.0",
     "rimraf": "^2.6.1",
     "sinon": "^2.4.1",
@@ -60,9 +60,17 @@
   "engines": {
     "node": ">=4"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "homepage": "https://github.com/vanduynslagerp/karma-postcss-preprocessor#readme",
-  "keywords": ["karma-plugin", "karma-preprocessor", "postcss", "watcher", "sourcemaps"],
+  "keywords": [
+    "karma-plugin",
+    "karma-preprocessor",
+    "postcss",
+    "watcher",
+    "sourcemaps"
+  ],
   "license": "MIT",
   "main": "lib/index.js",
   "repository": {
