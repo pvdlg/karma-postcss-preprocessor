@@ -194,6 +194,25 @@ test('Add dependency to watcher', async t => {
   t.true(add.calledOnce);
 });
 
+test('Add dependency to watcher for file added with glob', async t => {
+  const fixture = 'test/fixtures/with-partial.css';
+  const glob = 'test/*/+(with|nomatch)*+(partial|nomatch).css';
+  const partial = path.resolve('test/fixtures/partials/partial.css');
+  const subPartial = path.resolve('test/fixtures/partials/sub-partial.css');
+  const options = {plugins: [atImport({path: ['test/fixtures/partials']}), mixins, simpleVars, cssnano]};
+  const {preprocessor, add, debug} = mockPreprocessor(
+    {},
+    {files: [{pattern: glob, watched: true}], autoWatch: true, postcssPreprocessor: {options}}
+  );
+  const file = {originalPath: fixture};
+
+  await preprocessor(await readFile(fixture), file);
+  t.true(debug.secondCall.calledWith(match('Watching'), partial));
+  t.true(debug.thirdCall.calledWith(match('Watching'), subPartial));
+  t.true(add.firstCall.calledWith(match.array.deepEquals([partial, subPartial])));
+  t.true(add.calledOnce);
+});
+
 test('Do not add dependency to watcher if parent is not watched', async t => {
   const fixture = 'test/fixtures/with-partial.css';
   const options = {plugins: [atImport({path: ['test/fixtures/partials']}), mixins, simpleVars, cssnano]};
