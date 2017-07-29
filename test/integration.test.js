@@ -63,9 +63,10 @@ test('Re-compile css file when dependency is modified', async t => {
     copy('test/fixtures/with-partial.css', fixture),
   ]);
 
-  const server = await watch([fixture, 'test/fixtures/styles.test.js'], {
-    options: {plugins: [atImport({path: [includePath]}), mixins, simpleVars, cssnano]},
-  });
+  const server = await watch(
+    [fixture.replace('fixtures', '*').replace('with', '+(with|nomatch)'), 'test/fixtures/styles.test.js'],
+    {options: {plugins: [atImport({path: [includePath]}), mixins, simpleVars, cssnano]}}
+  );
 
   try {
     let {success, error, disconnected} = await waitForRunComplete(server);

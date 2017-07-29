@@ -3,6 +3,7 @@ import {merge} from 'lodash';
 import {FSWatcher} from 'chokidar';
 import nodeify from 'nodeify';
 import sourceMappingURL from 'source-map-url';
+import minimatch from 'minimatch';
 import postcss from 'postcss';
 
 /**
@@ -65,7 +66,9 @@ function createPostcssPreprocessor(args, config, logger, server) {
         .then(result => {
           if (
             config.autoWatch &&
-            config.files.find(configFile => configFile.pattern === file.originalPath && configFile.watched)
+            config.files.find(
+              configFile => configFile.watched && minimatch(file.originalPath, configFile.pattern, {dot: true})
+            )
           ) {
             const fullPath = path.resolve(file.originalPath);
             const includedFiles = [];
