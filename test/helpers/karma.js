@@ -1,6 +1,7 @@
 import pEvent from 'p-event';
 import {Server, constants} from 'karma';
 import karmaPreprocessor from '../../lib/index';
+import {mockFactory} from './mock';
 
 /**
  * Base Karma configuration tu run preprocessor.
@@ -20,7 +21,6 @@ const KARMA_CONFIG = {
   colors: true,
   logLevel: constants.LOG_DISABLE,
   browsers: ['PhantomJS'],
-  plugins: ['@metahub/karma-jasmine-jquery', 'karma-*', karmaPreprocessor],
 };
 
 /**
@@ -45,7 +45,7 @@ const KARMA_CONFIG = {
  * @return {Promise<KarmaOutput>} A `Promise` that resolve to the Karma execution results.
  */
 export async function run(files, config) {
-  const server = createServer(files, config, false);
+  const server = createServer(files, config, false, karmaPreprocessor);
 
   server.start();
   const result = await waitForRunComplete(server);
@@ -64,11 +64,12 @@ export async function run(files, config) {
  * @param {Object} [config] configuration to pass to the preprocessor.
  * @return {Server} The started Karma Server.
  */
-export function watch(files, config) {
-  const server = createServer(files, config, true);
+export async function watch(files, config) {
+  const {factory, watcher} = mockFactory(true);
+  const server = createServer(files, config, true, factory);
 
   server.start();
-  return server;
+  return {server, watcher: await watcher};
 }
 
 /**
@@ -78,9 +79,10 @@ export function watch(files, config) {
  * @param {Array<string>} files path of the css files and unit tests.
  * @param {Object} [config] configuration to pass to the preprocessor.
  * @param {boolean} autoWatch `true` for autoWatch mode, `false` for a single run.
+ * @param {Object} processorFactory Karma plugin factory.
  * @return {Server} the configured Karma Server.
  */
-function createServer(files, config, autoWatch) {
+function createServer(files, config, autoWatch, processorFactory) {
   return new Server(
     Object.assign(KARMA_CONFIG, {
       files: Array.isArray(files) ? files : [files],
@@ -88,6 +90,7 @@ function createServer(files, config, autoWatch) {
       customPreprocessors: {custom_postcss: Object.assign({base: 'postcss'}, config)},
       singleRun: !autoWatch,
       autoWatch,
+      plugins: ['@metahub/karma-jasmine-jquery', 'karma-*', processorFactory],
     }),
     () => 0
   );
@@ -104,7 +107,7 @@ export async function waitForRunComplete(server) {
   try {
     const [, result] = await pEvent(server, 'run_complete', {
       multiArgs: true,
-      timeout: 10000,
+      timeout: 50000,
       rejectionEvents: ['browser_error'],
     });
 
