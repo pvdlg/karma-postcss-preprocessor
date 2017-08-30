@@ -1,13 +1,13 @@
 import path from 'path';
 import {copy} from 'fs-extra';
 import test from 'ava';
+import {stub} from 'sinon';
+import tempy from 'tempy';
 import cssnano from 'cssnano';
 import mixins from 'postcss-mixins';
 import simpleVars from 'postcss-simple-vars';
 import atImport from 'postcss-import';
-import {stub} from 'sinon';
 import {run, watch, waitForRunComplete} from './helpers/karma';
-import {tmp} from './helpers/utils';
 
 let stubWrite;
 
@@ -56,7 +56,7 @@ test('Log error on invalid css file', async t => {
 });
 
 test('Re-compile css file when dependency is modified', async t => {
-  const dir = path.resolve(tmp());
+  const dir = tempy.directory();
   const fixture = path.join(dir, 'with-partial.css');
   const includePath = path.join(dir, 'partials');
   const partial = path.join(includePath, 'partial.css');
@@ -68,6 +68,7 @@ test('Re-compile css file when dependency is modified', async t => {
     copy('test/fixtures/with-partial.css', fixture),
   ]);
 
+  console.log(fixture.replace('fixtures', '*').replace('with', '+(with|nomatch)'), 'test/fixtures/styles.test.js');
   const {server, watcher} = await watch(
     [fixture.replace('fixtures', '*').replace('with', '+(with|nomatch)'), 'test/fixtures/styles.test.js'],
     {options: {plugins: [atImport({path: [includePath]}), mixins, simpleVars, cssnano]}}
