@@ -1,19 +1,8 @@
 import path from 'path';
 import {readFile} from 'fs-extra';
-import uuid from 'uuid';
 import pEvent from 'p-event';
 import sourceMappingURL from 'source-map-url';
 import postcss from 'postcss';
-
-/**
- * Generate a unique temporary file/directory path.
- *
- * @param {String} filename file/directory name to create under 'test/fixtures/.tmp'.
- * @return {String} the path of the unique temporary file/directory.
- */
-export function tmp(filename) {
-  return path.join('test/fixtures/.tmp', uuid(), filename || '');
-}
 
 /* eslint-disable no-magic-numbers */
 /**
