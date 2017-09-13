@@ -64,7 +64,7 @@
     "sinon": "^3.0.0",
     "sr-commit-analyzer": "^2.0.2",
     "sr-release-notes-generator": "^1.1.2",
-    "tempy": "^0.1.0"
+    "tempy": "^0.2.0"
   },
   "engines": {
     "node": ">=4"
