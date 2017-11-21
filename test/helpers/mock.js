@@ -24,12 +24,12 @@ import pify from 'pify';
  */
 
 /**
-  * Create a mocked preprocessor factory.
-  * 
-  * @method mockFactory
-  * @param {Boolean} autoWatch `true` for autoWatch mode, `false` for a single run.
-  * @return {MockFactory} mocked preprocessor factory and watcher.
-  */
+ * Create a mocked preprocessor factory.
+ *
+ * @method mockFactory
+ * @param {Boolean} autoWatch `true` for autoWatch mode, `false` for a single run.
+ * @return {MockFactory} mocked preprocessor factory and watcher.
+ */
 export function mockFactory(autoWatch) {
   const FSWatcher = stub();
 
@@ -58,7 +58,7 @@ export function mockFactory(autoWatch) {
 
 /**
  * Create a mocked preprocessor.
- * 
+ *
  * @method mockPreprocessor
  * @param {Object} [args={}] custom preprocessor config to pass to the factory.
  * @param {Object} [config={}] Karma config to pass to the factory.
