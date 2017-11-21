@@ -5,7 +5,7 @@ import {mockFactory} from './mock';
 
 /**
  * Base Karma configuration tu run preprocessor.
- * 
+ *
  * @type {Object}
  */
 const KARMA_CONFIG = {
@@ -38,7 +38,7 @@ const KARMA_CONFIG = {
  * - Base Karma configuration {@link KARMA_CONFIG}
  * - Css to compile with the preprocessor and unit test to run
  * - preprocessor options
- * 
+ *
  * @method run
  * @param {Array<string>} files path of the css files and unit tests.
  * @param {Object} [config] configuration to pass to the preprocessor.
@@ -58,7 +58,7 @@ export async function run(files, config) {
  * - Base Karma configuration {@link KARMA_CONFIG}
  * - Css to compile with the preprocessor and unit test to run
  * - preprocessor options
- * 
+ *
  * @method run
  * @param {Array<string>} files path of the css files and unit tests.
  * @param {Object} [config] configuration to pass to the preprocessor.
@@ -74,7 +74,7 @@ export async function watch(files, config) {
 
 /**
  * Create a Karma {@link Server}.
- * 
+ *
  * @method createServer
  * @param {Array<string>} files path of the css files and unit tests.
  * @param {Object} [config] configuration to pass to the preprocessor.
@@ -98,7 +98,7 @@ function createServer(files, config, autoWatch, processorFactory) {
 
 /**
  * Return a Promise that resolve when a run is completed by the KArma server in parameter.
- * 
+ *
  * @method waitForRunComplete
  * @param {Server} server A Karma server started in autoWatch mode.
  * @return {Promise<KarmaOutput>} A `Promise` that resolve to the Karma execution results.

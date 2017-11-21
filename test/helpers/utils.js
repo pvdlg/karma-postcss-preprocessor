@@ -27,7 +27,7 @@ export function waitFor(emitter, event, timeout = 30000) {
 /* eslint-enable no-magic-numbers */
 /**
  * Compile a css file and return the result as a `string`.
- *  
+ *
  * @method compile
  * @param {string} file path of the file to compile.
  * @param {Object} [options={}] postcss options.
