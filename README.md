@@ -2,11 +2,11 @@
 
 Karma preprocessor to compile postcss and scss files with [Postcss](https://github.com/postcss/postcss).
 
-[![Travis](https://img.shields.io/travis/vanduynslagerp/karma-postcss-preprocessor.svg)](https://travis-ci.org/vanduynslagerp/karma-postcss-preprocessor)
-[![AppVeyor](https://img.shields.io/appveyor/ci/vanduynslagerp/karma-postcss-preprocessor.svg)](https://ci.appveyor.com/project/vanduynslagerp/karma-postcss-preprocessor)
-[![Codecov](https://img.shields.io/codecov/c/github/vanduynslagerp/karma-postcss-preprocessor.svg)](https://codecov.io/gh/vanduynslagerp/karma-postcss-preprocessor)
-[![Greenkeeper badge](https://badges.greenkeeper.io/vanduynslagerp/karma-postcss-preprocessor.svg)](https://greenkeeper.io/)
-[![license](https://img.shields.io/github/license/vanduynslagerp/karma-postcss-preprocessor.svg)](https://github.com/vanduynslagerp/karma-postcss-preprocessor/blob/master/LICENSE)
+[![Travis](https://img.shields.io/travis/pvdlg/karma-postcss-preprocessor.svg)](https://travis-ci.org/pvdlg/karma-postcss-preprocessor)
+[![AppVeyor](https://img.shields.io/appveyor/ci/pvdlg/karma-postcss-preprocessor.svg)](https://ci.appveyor.com/project/pvdlg/karma-postcss-preprocessor)
+[![Codecov](https://img.shields.io/codecov/c/github/pvdlg/karma-postcss-preprocessor.svg)](https://codecov.io/gh/pvdlg/karma-postcss-preprocessor)
+[![Greenkeeper badge](https://badges.greenkeeper.io/pvdlg/karma-postcss-preprocessor.svg)](https://greenkeeper.io/)
+[![license](https://img.shields.io/github/license/pvdlg/karma-postcss-preprocessor.svg)](https://github.com/pvdlg/karma-postcss-preprocessor/blob/master/LICENSE)
 
 ## Installation
 
@@ -97,7 +97,7 @@ module.exports = function(config) {
 
 ### With karma-sass-preprocessor
 
-To compile sass/scss files with [node-sass](https://github.com/sass/node-sass) then process them with [Postcss](https://github.com/postcss/postcss) you can use [@metahub/karma-sass-preprocessor](https://github.com/vanduynslagerp/karma-sass-preprocessor).
+To compile sass/scss files with [node-sass](https://github.com/sass/node-sass) then process them with [Postcss](https://github.com/postcss/postcss) you can use [@metahub/karma-sass-preprocessor](https://github.com/pvdlg/karma-sass-preprocessor).
 
 ```bash
 npm install node-sass @metahub/karma-sass-preprocessor --save-dev
