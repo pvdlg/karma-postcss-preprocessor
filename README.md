@@ -11,7 +11,6 @@ Karma preprocessor to compile postcss and scss files with [Postcss](https://gith
 
 [![Travis](https://img.shields.io/travis/vanduynslagerp/karma-postcss-preprocessor.svg)](https://travis-ci.org/vanduynslagerp/karma-postcss-preprocessor)
 [![AppVeyor](https://img.shields.io/appveyor/ci/vanduynslagerp/karma-postcss-preprocessor.svg)](https://ci.appveyor.com/project/vanduynslagerp/karma-postcss-preprocessor)
-[![Code Climate](https://img.shields.io/codeclimate/github/vanduynslagerp/karma-postcss-preprocessor.svg)](https://codeclimate.com/github/vanduynslagerp/karma-postcss-preprocessor)
 [![Codecov](https://img.shields.io/codecov/c/github/vanduynslagerp/karma-postcss-preprocessor.svg)](https://codecov.io/gh/vanduynslagerp/karma-postcss-preprocessor)
 
 ## Installation
