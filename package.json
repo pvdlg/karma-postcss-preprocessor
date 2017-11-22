@@ -22,16 +22,8 @@
     "codecov": "^3.0.0",
     "conventional-changelog-metahub": "^1.2.1",
     "cssnano": "^3.10.0",
-    "eslint": "^4.3.0",
     "eslint-config-prettier": "^2.3.0",
-    "eslint-config-pretty": "^2.1.1",
-    "eslint-plugin-ava": "^4.2.1",
-    "eslint-plugin-babel": "^4.1.2",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jasmine": "^2.8.2",
-    "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-prettier": "^2.1.2",
-    "eslint-plugin-promise": "^3.5.0",
     "fs-extra": "^4.0.0",
     "jasmine-core": "^2.7.0",
     "jasmine-jquery": "^2.1.1",
@@ -52,7 +44,8 @@
     "rimraf": "^2.6.1",
     "semantic-release": "^10.0.0",
     "sinon": "^4.0.0",
-    "tempy": "^0.2.0"
+    "tempy": "^0.2.0",
+    "xo": "^0.18.2"
   },
   "engines": {
     "node": ">=4"
@@ -85,6 +78,12 @@
     "karma": "*",
     "postcss": "*"
   },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "trailingComma": "es5"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -102,13 +101,23 @@
     "url": "git+https://github.com/vanduynslagerp/karma-postcss-preprocessor.git"
   },
   "scripts": {
-    "clean": "rimraf rimraf coverage && rimraf .nyc_output",
     "codecov": "codecov -f coverage/coverage-final.json",
     "compile": "rimraf lib && babel src --source-maps --out-dir lib",
-    "lint": "eslint src test package.json",
+    "lint": "xo",
     "prepublishOnly": "npm run compile",
-    "pretest": "npm run clean && npm run compile && npm run lint",
+    "pretest": "npm run compile && npm run lint",
     "semantic-release": "semantic-release",
     "test": "nyc ava -v"
+  },
+  "xo": {
+    "extends": [
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": 2
+    }
   }
 }
