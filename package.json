@@ -3,6 +3,18 @@
   "description": "Karma preprocessor to compile css files with postcss with sourcemap and watch support",
   "version": "0.0.0-development",
   "author": "Pierre Vanduynslager",
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "4"
+          }
+        }
+      ]
+    ]
+  },
   "bugs": {
     "url": "https://github.com/vanduynslagerp/karma-postcss-preprocessor/issues"
   },
