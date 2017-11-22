@@ -42,7 +42,6 @@
     "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-promise": "^3.5.0",
     "fs-extra": "^4.0.0",
-    "husky": "^0.14.3",
     "jasmine-core": "^2.7.0",
     "jasmine-jquery": "^2.1.1",
     "karma": "^1.7.0",
@@ -126,10 +125,7 @@
     "compile": "rimraf lib && babel src --source-maps --out-dir lib",
     "coverage": "nyc check-coverage",
     "lint": "eslint src test package.json",
-    "postcheckout": "yarn install || (rimraf && npm install)",
-    "precommit": "npm run compile && npm run lint",
     "prepublishOnly": "npm run compile",
-    "prepush": "ava -v",
     "pretest": "npm run clean && npm run compile && npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "nyc ava -v"
