@@ -2,14 +2,11 @@
 
 Karma preprocessor to compile postcss and scss files with [Postcss](https://github.com/postcss/postcss).
 
-[![npm](https://img.shields.io/npm/v/@metahub/karma-postcss-preprocessor.svg)](https://www.npmjs.com/package/@metahub/karma-postcss-preprocessor)
-[![npm](https://img.shields.io/npm/dt/@metahub/karma-postcss-preprocessor.svg)](https://www.npmjs.com/package/@metahub/karma-postcss-preprocessor)
-[![Greenkeeper badge](https://badges.greenkeeper.io/vanduynslagerp/karma-postcss-preprocessor.svg)](https://greenkeeper.io/)
-[![license](https://img.shields.io/github/license/vanduynslagerp/karma-postcss-preprocessor.svg)](https://github.com/vanduynslagerp/karma-postcss-preprocessor/blob/master/LICENSE)
-
 [![Travis](https://img.shields.io/travis/vanduynslagerp/karma-postcss-preprocessor.svg)](https://travis-ci.org/vanduynslagerp/karma-postcss-preprocessor)
 [![AppVeyor](https://img.shields.io/appveyor/ci/vanduynslagerp/karma-postcss-preprocessor.svg)](https://ci.appveyor.com/project/vanduynslagerp/karma-postcss-preprocessor)
 [![Codecov](https://img.shields.io/codecov/c/github/vanduynslagerp/karma-postcss-preprocessor.svg)](https://codecov.io/gh/vanduynslagerp/karma-postcss-preprocessor)
+[![Greenkeeper badge](https://badges.greenkeeper.io/vanduynslagerp/karma-postcss-preprocessor.svg)](https://greenkeeper.io/)
+[![license](https://img.shields.io/github/license/vanduynslagerp/karma-postcss-preprocessor.svg)](https://github.com/vanduynslagerp/karma-postcss-preprocessor/blob/master/LICENSE)
 
 ## Installation
 
