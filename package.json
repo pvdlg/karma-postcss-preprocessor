@@ -19,8 +19,6 @@
     "source-map-url": "^0.4.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^5.0.1",
-    "@commitlint/config-angular": "^4.3.0",
     "@metahub/cz-conventional-commit": "^2.0.0",
     "@metahub/karma-jasmine-jquery": "^1.0.0",
     "ava": "^0.23.0",
@@ -121,7 +119,6 @@
     "clean": "rimraf rimraf coverage && rimraf .nyc_output",
     "cm": "git-cz",
     "codecov": "codecov",
-    "commitmsg": "commitlint -e",
     "compile": "rimraf lib && babel src --source-maps --out-dir lib",
     "coverage": "nyc check-coverage",
     "lint": "eslint src test package.json",
