@@ -87,7 +87,7 @@ function createServer(files, config, autoWatch, processorFactory) {
     Object.assign(KARMA_CONFIG, {
       files: Array.isArray(files) ? files : [files],
       postcssPreprocessor: config,
-      customPreprocessors: {custom_postcss: Object.assign({base: 'postcss'}, config)},
+      customPreprocessors: {custom_postcss: Object.assign({base: 'postcss'}, config)}, // eslint-disable-line camelcase
       singleRun: !autoWatch,
       autoWatch,
       plugins: ['@metahub/karma-jasmine-jquery', 'karma-*', processorFactory],
