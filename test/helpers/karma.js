@@ -97,7 +97,7 @@ function createServer(files, config, autoWatch, processorFactory) {
 }
 
 /**
- * Return a Promise that resolve when a run is completed by the KArma server in parameter.
+ * Return a Promise that resolve when a run is completed by the Karma server in parameter.
  *
  * @method waitForRunComplete
  * @param {Server} server A Karma server started in autoWatch mode.
@@ -107,7 +107,7 @@ export async function waitForRunComplete(server) {
   try {
     const [, result] = await pEvent(server, 'run_complete', {
       multiArgs: true,
-      timeout: 50000,
+      timeout: 10000,
       rejectionEvents: ['browser_error'],
     });
 

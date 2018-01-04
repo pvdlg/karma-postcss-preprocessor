@@ -19,12 +19,10 @@ test.after(() => {
   stubWrite.restore();
 });
 
-test('Compile css file', async t => {
+test.serial('Compile css file', async t => {
   const {success, error, disconnected, errMsg} = await run(
     ['test/fixtures/basic.css', 'test/fixtures/styles.test.js'],
-    {
-      options: {plugins: [atImport, mixins, simpleVars, cssnano]},
-    }
+    {options: {plugins: [atImport, mixins, simpleVars, cssnano]}}
   );
 
   t.ifError(error, `Karma returned the error: ${errMsg}`);
@@ -32,12 +30,10 @@ test('Compile css file', async t => {
   t.is(success, 1, 'Expected 1 test successful');
 });
 
-test('Compile css file with custom preprocessor', async t => {
+test.serial('Compile css file with custom preprocessor', async t => {
   const {success, error, disconnected, errMsg} = await run(
     ['test/fixtures/basic.custom.css', 'test/fixtures/styles.test.js'],
-    {
-      options: {plugins: [atImport, mixins, simpleVars, cssnano]},
-    }
+    {options: {plugins: [atImport, mixins, simpleVars, cssnano]}}
   );
 
   t.ifError(error, `Karma returned the error: ${errMsg}`);
@@ -45,7 +41,7 @@ test('Compile css file with custom preprocessor', async t => {
   t.is(success, 1, 'Expected 1 test successful');
 });
 
-test('Log error on invalid css file', async t => {
+test.serial('Log error on invalid css file', async t => {
   const {error, disconnected, exitCode} = await run('test/fixtures/error.css', {
     options: {plugins: [atImport, mixins, simpleVars, cssnano]},
   });
@@ -55,7 +51,7 @@ test('Log error on invalid css file', async t => {
   t.is(exitCode, 1, 'Expected non zero exit code');
 });
 
-test('Re-compile css file when dependency is modified', async t => {
+test.serial('Re-compile css file when dependency is modified', async t => {
   const dir = tempy.directory();
   const fixture = path.join(dir, 'with-partial.css');
   const includePath = path.join(dir, 'partials');
