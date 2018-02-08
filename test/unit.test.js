@@ -258,7 +258,7 @@ test('Add dependency to watcher only once, even when its referenced multiple tim
   t.true(debug.secondCall.calledWith(match('Watching'), partial));
   t.true(debug.thirdCall.calledWith(match('Watching'), subPartial));
   t.true(watcher.add.firstCall.calledWith(match.array.deepEquals([partial, subPartial])));
-  debug.reset();
+  debug.resetHistory();
   await preprocessor(await readFile(otherFixture), otherFile);
   t.true(watcher.add.calledOnce);
   t.true(debug.calledOnce);
@@ -280,7 +280,7 @@ test('Add dependency to watcher only once if file is overwritten', async t => {
   t.true(debug.secondCall.calledWith(match('Watching'), partial));
   t.true(watcher.add.firstCall.calledWith(match.array.deepEquals([partial, subPartial])));
   t.true(watcher.add.calledOnce);
-  debug.reset();
+  debug.resetHistory();
   watcher.emit('add', subPartial);
   await preprocessor(await readFile(fixture), file);
   t.true(refreshFiles.notCalled);
@@ -307,8 +307,8 @@ test('Remove dependency from watcher if not referenced anymore', async t => {
     copy('test/fixtures/with-partial.css', fixture),
   ]);
   await preprocessor(await readFile(fixture), file);
-  watcher.add.reset();
-  debug.reset();
+  watcher.add.resetHistory();
+  debug.resetHistory();
   await outputFile(
     fixture,
     (await readFile(fixture)).toString().replace(`@import 'partial';`, `@import 'partial-alt';`)
@@ -351,8 +351,8 @@ test('Do not remove dependency from watcher when unreferenced, if another file s
   ]);
   await preprocessor(await readFile(fixture), file);
   await preprocessor(await readFile(otherFixture), otherFile);
-  watcher.add.reset();
-  debug.reset();
+  watcher.add.resetHistory();
+  debug.resetHistory();
   await outputFile(
     fixture,
     (await readFile(fixture)).toString().replace(`@import 'partial';`, `@import 'partial-alt';`)
@@ -395,8 +395,8 @@ test('Do not remove dependency from watcher when different files have differents
     (await readFile(fixture)).toString().replace(`@import 'partial';`, `@import 'partial-alt';`)
   );
   await preprocessor(await readFile(fixture), file);
-  watcher.add.reset();
-  debug.reset();
+  watcher.add.resetHistory();
+  debug.resetHistory();
   await preprocessor(await readFile(otherFixture), otherFile);
   t.true(watcher.add.calledOnce);
   t.true(watcher.unwatch.notCalled);
@@ -458,8 +458,8 @@ test('Call refreshFiles when dependency is deleted and added', async t => {
   t.true(info.firstCall.calledWith(match('Deleted file'), path.resolve(partial)));
   t.true(info.calledOnce);
   t.true(refreshFiles.calledOnce);
-  info.reset();
-  refreshFiles.reset();
+  info.resetHistory();
+  refreshFiles.resetHistory();
   await t.throws(preprocessor(await readFile(fixture), file), Error);
   const cpy = waitFor(watcher, 'add');
 
