@@ -15,7 +15,7 @@ import postcss from 'postcss';
  * @return {Promise} Promise tht resolve when the event is emitted.
  */
 export function waitFor(emitter, event, timeout = 30000) {
-  return pEvent(emitter, event, {timeout});
+	return pEvent(emitter, event, {timeout});
 }
 
 /**
@@ -34,21 +34,21 @@ export function waitFor(emitter, event, timeout = 30000) {
  * @return {Compiled} compiled code and source map.
  */
 export async function compile(file, options = {}) {
-  if (options.sourceMap || options.map) {
-    options.map = {inline: false};
-  }
-  options.from = path.resolve(file);
-  options.to = path.resolve(file);
-  const {css, map} = await postcss(options.plugins || []).process(await readFile(path.resolve(file)), options);
+	if (options.sourceMap || options.map) {
+		options.map = {inline: false};
+	}
+	options.from = path.resolve(file);
+	options.to = path.resolve(file);
+	const {css, map} = await postcss(options.plugins || []).process(await readFile(path.resolve(file)), options);
 
-  return {
-    css: map
-      ? `${sourceMappingURL.removeFrom(
-          css
-        )}\n//# source${''}MappingURL=data:application/json;charset=utf-8;base64,${Buffer.from(
-          JSON.stringify(JSON.parse(map.toString()))
-        ).toString('base64')}\n`
-      : css,
-    map: map ? JSON.parse(map.toString()) : undefined,
-  };
+	return {
+		css: map
+			? `${sourceMappingURL.removeFrom(
+					css
+				)}\n//# source${''}MappingURL=data:application/json;charset=utf-8;base64,${Buffer.from(
+					JSON.stringify(JSON.parse(map.toString()))
+				).toString('base64')}\n`
+			: css,
+		map: map ? JSON.parse(map.toString()) : undefined,
+	};
 }
