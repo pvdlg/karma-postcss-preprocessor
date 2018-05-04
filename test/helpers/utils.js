@@ -45,9 +45,9 @@ export async function compile(file, options = {}) {
 		css: map
 			? `${sourceMappingURL.removeFrom(
 					css
-				)}\n//# source${''}MappingURL=data:application/json;charset=utf-8;base64,${Buffer.from(
+			  )}\n//# source${''}MappingURL=data:application/json;charset=utf-8;base64,${Buffer.from(
 					JSON.stringify(JSON.parse(map.toString()))
-				).toString('base64')}\n`
+			  ).toString('base64')}\n`
 			: css,
 		map: map ? JSON.parse(map.toString()) : undefined,
 	};
