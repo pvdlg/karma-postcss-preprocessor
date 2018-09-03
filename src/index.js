@@ -122,9 +122,9 @@ function createPostcssPreprocessor(args, config, logger, server) {
 					}
 					return result.css;
 				})
-				.catch(err => {
-					log.error('%s\n  at %s:%d', err.message, file.originalPath, err.line);
-					throw err;
+				.catch(error => {
+					log.error('%s\n  at %s:%d', error.message, file.originalPath, error.line);
+					throw error;
 				}),
 			done
 		);
