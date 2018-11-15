@@ -39,7 +39,7 @@
     "jasmine-jquery": "^2.1.1",
     "karma": "^3.0.0",
     "karma-babel-preprocessor": "^7.0.0",
-    "karma-jasmine": "^1.1.0",
+    "karma-jasmine": "^2.0.0",
     "karma-phantomjs-launcher": "^1.0.4",
     "nyc": "^12.0.1",
     "p-event": "^2.0.0",
