@@ -155,7 +155,7 @@ test('Log error on invalid css file', async t => {
 	const options = {plugins: [atImport, mixins, simpleVars, cssnano]};
 	const {preprocessor, debug, error} = await mockPreprocessor({}, {postcssPreprocessor: {options}});
 	const file = {originalPath: fixture};
-	const err = await t.throws(preprocessor(await readFile(fixture), file));
+	const err = await t.throwsAsync(preprocessor(await readFile(fixture), file), {instanceOf: Object});
 
 	t.is(err.name, 'CssSyntaxError');
 	t.true(debug.firstCall.calledWith(match('Processing'), fixture));
@@ -460,7 +460,7 @@ test('Call refreshFiles when dependency is deleted and added', async t => {
 	t.true(refreshFiles.calledOnce);
 	info.resetHistory();
 	refreshFiles.resetHistory();
-	await t.throws(preprocessor(await readFile(fixture), file), Error);
+	await t.throwsAsync(preprocessor(await readFile(fixture), file), Error);
 	const cpy = waitFor(watcher, 'add');
 
 	await copy('test/fixtures/partials/partial.css', partial);

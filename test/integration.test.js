@@ -25,8 +25,8 @@ test.serial('Compile css file', async t => {
 		{options: {plugins: [atImport, mixins, simpleVars, cssnano]}}
 	);
 
-	t.ifError(error, `Karma returned the error: ${errMsg}`);
-	t.ifError(disconnected, 'Karma disconnected');
+	t.falsy(error, `Karma returned the error: ${errMsg}`);
+	t.falsy(disconnected, 'Karma disconnected');
 	t.is(success, 1, 'Expected 1 test successful');
 });
 
@@ -36,8 +36,8 @@ test.serial('Compile css file with custom preprocessor', async t => {
 		{options: {plugins: [atImport, mixins, simpleVars, cssnano]}}
 	);
 
-	t.ifError(error, `Karma returned the error: ${errMsg}`);
-	t.ifError(disconnected, 'Karma disconnected');
+	t.falsy(error, `Karma returned the error: ${errMsg}`);
+	t.falsy(disconnected, 'Karma disconnected');
 	t.is(success, 1, 'Expected 1 test successful');
 });
 
@@ -46,7 +46,7 @@ test.serial('Log error on invalid css file', async t => {
 		options: {plugins: [atImport, mixins, simpleVars, cssnano]},
 	});
 
-	t.ifError(disconnected, 'Karma disconnected');
+	t.falsy(disconnected, 'Karma disconnected');
 	t.true(error, 'Expected an error to be returned');
 	t.is(exitCode, 1, 'Expected non zero exit code');
 });
@@ -72,15 +72,15 @@ test.serial('Re-compile css file when dependency is modified', async t => {
 	try {
 		let {success, error, disconnected, errMsg} = await waitForRunComplete(server);
 
-		t.ifError(error, `Karma returned the error: ${errMsg}`);
-		t.ifError(disconnected, 'Karma disconnected');
+		t.falsy(error, `Karma returned the error: ${errMsg}`);
+		t.falsy(disconnected, 'Karma disconnected');
 		t.is(success, 1, 'Expected 1 test successful');
 
 		watcher.emit('change', partial);
 		({success, error, disconnected, errMsg} = await waitForRunComplete(server));
 
-		t.ifError(error, `Karma returned the error: ${errMsg}`);
-		t.ifError(disconnected, 'Karma disconnected');
+		t.falsy(error, `Karma returned the error: ${errMsg}`);
+		t.falsy(disconnected, 'Karma disconnected');
 		t.is(success, 1, 'Expected 1 test successful');
 	} finally {
 		await server.emitAsync('exit');
