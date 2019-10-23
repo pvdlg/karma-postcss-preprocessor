@@ -14,7 +14,7 @@
     "source-map-url": "^0.4.0"
   },
   "devDependencies": {
-    "@metahub/karma-jasmine-jquery": "^2.0.0",
+    "@metahub/karma-jasmine-jquery": "^3.0.0",
     "ava": "^1.0.1",
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
