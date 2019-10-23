@@ -4,7 +4,6 @@ import pEvent from 'p-event';
 import sourceMappingURL from 'source-map-url';
 import postcss from 'postcss';
 
-/* eslint-disable no-magic-numbers */
 /**
  * Return a Promise that resolve when an event is emitted and reject after a timeout expire if the event is not emitted.
  *
@@ -24,7 +23,6 @@ export function waitFor(emitter, event, timeout = 30000) {
  * @property {Object} map the sourcemap resulting from the compilation.
  */
 
-/* eslint-enable no-magic-numbers */
 /**
  * Compile a css file and return the result as a `string`.
  *
@@ -37,6 +35,7 @@ export async function compile(file, options = {}) {
 	if (options.sourceMap || options.map) {
 		options.map = {inline: false};
 	}
+
 	options.from = path.resolve(file);
 	options.to = path.resolve(file);
 	const {css, map} = await postcss(options.plugins || []).process(await readFile(path.resolve(file)), options);
