@@ -3,6 +3,14 @@
   "description": "Karma preprocessor to compile css files with postcss with sourcemap and watch support",
   "version": "0.0.0-development",
   "author": "Pierre Vanduynslager (https://github.com/pvdlg)",
+  "ava": {
+    "helpers": [
+      "test/helpers/**/*"
+    ],
+    "files": [
+      "test/*.test.js"
+    ]
+  },
   "bugs": {
     "url": "https://github.com/pvdlg/karma-postcss-preprocessor/issues"
   },
@@ -15,7 +23,7 @@
   },
   "devDependencies": {
     "@metahub/karma-jasmine-jquery": "^3.0.0",
-    "ava": "^1.0.1",
+    "ava": "^2.4.0",
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "codecov": "^3.0.0",
