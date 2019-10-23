@@ -34,7 +34,7 @@ function createPostcssPreprocessor(args, config, logger, server) {
 				server.refreshFiles();
 			})
 			.on('add', filePath => {
-				if (unlinked.indexOf(filePath) !== -1) {
+				if (unlinked.includes(filePath)) {
 					log.info('Added file "%s".', filePath);
 					server.refreshFiles();
 				}
@@ -57,6 +57,7 @@ function createPostcssPreprocessor(args, config, logger, server) {
 		if (opts.sourceMap || opts.map) {
 			opts.map = {inline: false};
 		}
+
 		opts.from = file.originalPath;
 		opts.to = file.originalPath;
 
@@ -84,14 +85,14 @@ function createPostcssPreprocessor(args, config, logger, server) {
 									startWatching.push(includedFile);
 									log.debug('Watching "%s"', includedFile);
 									dependencies[includedFile] = [fullPath];
-								} else if (dependencies[includedFile].indexOf(fullPath) === -1) {
+								} else if (!dependencies[includedFile].includes(fullPath)) {
 									dependencies[includedFile].push(fullPath);
 								}
 							}
 						}
 
 						for (let i = 0, keys = Object.keys(dependencies), {length} = keys; i < length; i++) {
-							if (includedFiles.indexOf(keys[i]) === -1) {
+							if (!includedFiles.includes(keys[i])) {
 								const index = dependencies[keys[i]].indexOf(fullPath);
 
 								if (index !== -1) {
@@ -108,6 +109,7 @@ function createPostcssPreprocessor(args, config, logger, server) {
 						if (startWatching.length > 0) {
 							watcher.add(startWatching);
 						}
+
 						if (stopWatching.length > 0) {
 							watcher.unwatch(stopWatching);
 						}
@@ -121,6 +123,7 @@ function createPostcssPreprocessor(args, config, logger, server) {
 							JSON.stringify(file.sourceMap)
 						).toString('base64')}\n`;
 					}
+
 					return result.css;
 					// })
 				} catch (error) {

@@ -161,10 +161,8 @@ test('Log error on invalid css file', async t => {
 	t.true(debug.firstCall.calledWith(match('Processing'), fixture));
 	t.true(err.message.includes('Undefined mixin text-red'));
 
-	// eslint-disable-next-line no-magic-numbers
 	t.is(err.line, 14);
 	t.is(path.resolve(err.file), path.resolve(fixture));
-	// eslint-disable-next-line no-magic-numbers
 	t.true(error.firstCall.calledWith(match.string, match('Undefined mixin text-red'), fixture, match(14)));
 });
 
