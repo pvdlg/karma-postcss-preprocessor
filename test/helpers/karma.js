@@ -1,6 +1,6 @@
 import pEvent from 'p-event';
 import {Server, constants} from 'karma';
-import karmaPreprocessor from '../../lib';
+import karmaPreprocessor from '../..';
 import {mockFactory} from './mock';
 
 /**
@@ -17,7 +17,7 @@ const KARMA_CONFIG = {
 		'/**/*custom.+(css|txt)': ['custom_postcss'],
 		'/**/*.test.js': ['babel'],
 	},
-	babelPreprocessor: {options: {babelrc: false, presets: ['es2015'], sourceMap: 'inline'}},
+	babelPreprocessor: {options: {babelrc: false, presets: ['@babel/preset-env'], sourceMap: 'inline'}},
 	colors: true,
 	logLevel: constants.LOG_DISABLE,
 	browsers: ['PhantomJS'],
@@ -87,7 +87,7 @@ function createServer(files, config, autoWatch, processorFactory) {
 		Object.assign(KARMA_CONFIG, {
 			files: Array.isArray(files) ? files : [files],
 			postcssPreprocessor: config,
-			customPreprocessors: {custom_postcss: Object.assign({base: 'postcss'}, config)}, // eslint-disable-line camelcase
+			customPreprocessors: {custom_postcss: {base: 'postcss', ...config}}, // eslint-disable-line camelcase
 			singleRun: !autoWatch,
 			autoWatch,
 			plugins: ['@metahub/karma-jasmine-jquery', 'karma-*', processorFactory],
@@ -113,16 +113,11 @@ export async function waitForRunComplete(server) {
 
 		return result;
 	} catch (error) {
-		if (Array.isArray(error)) {
-			const [
-				{
-					lastResult: {success, failed, error: err, disconnected},
-				},
-				errMsg,
-			] = error;
+		console.log(error);
+		const {
+			lastResult: {success, failed, error: err, disconnected},
+		} = error;
 
-			return {success, failed, error: err, disconnected, exitCode: 1, errMsg};
-		}
-		throw error;
+		return {success, failed, error: err, disconnected, exitCode: 1};
 	}
 }

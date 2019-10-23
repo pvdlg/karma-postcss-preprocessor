@@ -1,10 +1,10 @@
-import path from 'path';
-import {merge} from 'lodash';
-import {FSWatcher} from 'chokidar';
-import nodeify from 'nodeify';
-import sourceMappingURL from 'source-map-url';
-import minimatch from 'minimatch';
-import postcss from 'postcss';
+const path = require('path');
+const {merge} = require('lodash');
+const {FSWatcher} = require('chokidar');
+const nodeify = require('nodeify');
+const sourceMappingURL = require('source-map-url');
+const minimatch = require('minimatch');
+const postcss = require('postcss');
 
 /**
  * Postcss preprocessor factory.
@@ -51,7 +51,7 @@ function createPostcssPreprocessor(args, config, logger, server) {
 		file.path = transformPath(file.originalPath);
 
 		// Clone the options because we need to mutate them
-		const opts = Object.assign({}, options);
+		const opts = {...options};
 
 		// Inline source maps
 		if (opts.sourceMap || opts.map) {
@@ -61,9 +61,9 @@ function createPostcssPreprocessor(args, config, logger, server) {
 		opts.to = file.originalPath;
 
 		nodeify(
-			postcss(opts.plugins || [])
-				.process(content, opts)
-				.then(result => {
+			(async () => {
+				try {
+					const result = await postcss(opts.plugins || []).process(content, opts);
 					if (
 						config.autoWatch &&
 						config.files.find(
@@ -112,20 +112,22 @@ function createPostcssPreprocessor(args, config, logger, server) {
 							watcher.unwatch(stopWatching);
 						}
 					}
+
 					if (opts.map && result.map) {
 						file.sourceMap = JSON.parse(result.map.toString());
 						return `${sourceMappingURL.removeFrom(
 							result.css
-						)}\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,${Buffer.from(
+						)}\n${'//#'} sourceMappingURL=data:application/json;charset=utf-8;base64,${Buffer.from(
 							JSON.stringify(file.sourceMap)
 						).toString('base64')}\n`;
 					}
 					return result.css;
-				})
-				.catch(error => {
+					// })
+				} catch (error) {
 					log.error('%s\n  at %s:%d', error.message, file.originalPath, error.line);
 					throw error;
-				}),
+				}
+			})(),
 			done
 		);
 	};
