@@ -1,13 +1,13 @@
-import path from 'path';
-import {copy} from 'fs-extra';
-import test from 'ava';
-import {stub} from 'sinon';
-import tempy from 'tempy';
-import cssnano from 'cssnano';
-import mixins from 'postcss-mixins';
-import simpleVars from 'postcss-simple-vars';
-import atImport from 'postcss-import';
-import {run, watch, waitForRunComplete} from './helpers/karma';
+const path = require('path');
+const {copy} = require('fs-extra');
+const test = require('ava');
+const {stub} = require('sinon');
+const tempy = require('tempy');
+const cssnano = require('cssnano');
+const mixins = require('postcss-mixins');
+const simpleVars = require('postcss-simple-vars');
+const atImport = require('postcss-import');
+const {run, watch, waitForRunComplete} = require('./helpers/karma');
 
 let stubWrite;
 

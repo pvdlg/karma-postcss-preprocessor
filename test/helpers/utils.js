@@ -1,8 +1,8 @@
-import path from 'path';
-import {readFile} from 'fs-extra';
-import pEvent from 'p-event';
-import sourceMappingURL from 'source-map-url';
-import postcss from 'postcss';
+const path = require('path');
+const {readFile} = require('fs-extra');
+const pEvent = require('p-event');
+const sourceMappingURL = require('source-map-url');
+const postcss = require('postcss');
 
 /**
  * Return a Promise that resolve when an event is emitted and reject after a timeout expire if the event is not emitted.
@@ -13,7 +13,7 @@ import postcss from 'postcss';
  * @param {Number} [timeout=30000] maximum time to wait for the event to be emitted.
  * @return {Promise} Promise tht resolve when the event is emitted.
  */
-export function waitFor(emitter, event, timeout = 30000) {
+function waitFor(emitter, event, timeout = 30000) {
 	return pEvent(emitter, event, {timeout});
 }
 
@@ -31,7 +31,7 @@ export function waitFor(emitter, event, timeout = 30000) {
  * @param {Object} [options={}] postcss options.
  * @return {Compiled} compiled code and source map.
  */
-export async function compile(file, options = {}) {
+async function compile(file, options = {}) {
 	if (options.sourceMap || options.map) {
 		options.map = {inline: false};
 	}
@@ -51,3 +51,5 @@ export async function compile(file, options = {}) {
 		map: map ? JSON.parse(map.toString()) : undefined,
 	};
 }
+
+module.exports = {waitFor, compile};

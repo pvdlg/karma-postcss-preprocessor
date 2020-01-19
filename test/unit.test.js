@@ -1,14 +1,14 @@
-import path from 'path';
-import {readFile, copy, outputFile, remove} from 'fs-extra';
-import test from 'ava';
-import {spy, match} from 'sinon';
-import tempy from 'tempy';
-import cssnano from 'cssnano';
-import mixins from 'postcss-mixins';
-import simpleVars from 'postcss-simple-vars';
-import atImport from 'postcss-import';
-import {waitFor, compile} from './helpers/utils';
-import {mockPreprocessor} from './helpers/mock';
+const path = require('path');
+const {readFile, copy, outputFile, remove} = require('fs-extra');
+const test = require('ava');
+const {spy, match} = require('sinon');
+const tempy = require('tempy');
+const cssnano = require('cssnano');
+const mixins = require('postcss-mixins');
+const simpleVars = require('postcss-simple-vars');
+const atImport = require('postcss-import');
+const {waitFor, compile} = require('./helpers/utils');
+const {mockPreprocessor} = require('./helpers/mock');
 
 test('Compile css file', async t => {
 	const fixture = 'test/fixtures/basic.css';
@@ -155,7 +155,7 @@ test('Log error on invalid css file', async t => {
 	const options = {plugins: [atImport, mixins, simpleVars, cssnano]};
 	const {preprocessor, debug, error} = await mockPreprocessor({}, {postcssPreprocessor: {options}});
 	const file = {originalPath: fixture};
-	const err = await t.throwsAsync(preprocessor(await readFile(fixture), file), {instanceOf: Object});
+	const err = await t.throwsAsync(preprocessor(await readFile(fixture), file), {instanceOf: Error});
 
 	t.is(err.name, 'CssSyntaxError');
 	t.true(debug.firstCall.calledWith(match('Processing'), fixture));
@@ -467,7 +467,7 @@ test('Call refreshFiles when dependency is deleted and added', async t => {
 	t.true(refreshFiles.calledOnce);
 	info.resetHistory();
 	refreshFiles.resetHistory();
-	await t.throwsAsync(preprocessor(await readFile(fixture), file), Error);
+	await t.throwsAsync(preprocessor(await readFile(fixture), file), {instanceOf: Error});
 	const cpy = waitFor(watcher, 'add');
 
 	await copy('test/fixtures/partials/partial.css', partial);
