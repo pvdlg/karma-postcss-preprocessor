@@ -1,7 +1,7 @@
-import pEvent from 'p-event';
-import {Server, constants} from 'karma';
-import karmaPreprocessor from '../..';
-import {mockFactory} from './mock';
+const pEvent = require('p-event');
+const {Server, constants} = require('karma');
+const karmaPreprocessor = require('../..');
+const {mockFactory} = require('./mock');
 
 /**
  * Base Karma configuration tu run preprocessor.
@@ -44,7 +44,7 @@ const KARMA_CONFIG = {
  * @param {Object} [config] configuration to pass to the preprocessor.
  * @return {Promise<KarmaOutput>} A `Promise` that resolve to the Karma execution results.
  */
-export async function run(files, config) {
+async function run(files, config) {
 	const server = createServer(files, config, false, karmaPreprocessor);
 
 	server.start();
@@ -64,7 +64,7 @@ export async function run(files, config) {
  * @param {Object} [config] configuration to pass to the preprocessor.
  * @return {Server} The started Karma Server.
  */
-export async function watch(files, config) {
+async function watch(files, config) {
 	const {factory, watcher} = mockFactory(true);
 	const server = createServer(files, config, true, factory);
 
@@ -103,7 +103,7 @@ function createServer(files, config, autoWatch, processorFactory) {
  * @param {Server} server A Karma server started in autoWatch mode.
  * @return {Promise<KarmaOutput>} A `Promise` that resolve to the Karma execution results.
  */
-export async function waitForRunComplete(server) {
+async function waitForRunComplete(server) {
 	try {
 		const [, result] = await pEvent(server, 'run_complete', {
 			multiArgs: true,
@@ -121,3 +121,5 @@ export async function waitForRunComplete(server) {
 		return {success, failed, error: err, disconnected, exitCode: 1};
 	}
 }
+
+module.exports = {run, watch, waitForRunComplete};
