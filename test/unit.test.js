@@ -10,6 +10,8 @@ const atImport = require('postcss-import');
 const {waitFor, compile} = require('./helpers/utils');
 const {mockPreprocessor} = require('./helpers/mock');
 
+/* eslint prefer-named-capture-group: "off" */
+
 test('Compile css file', async t => {
 	const fixture = 'test/fixtures/basic.css';
 	const options = {plugins: [atImport, mixins, simpleVars, cssnano]};
