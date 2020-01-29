@@ -4,9 +4,6 @@
   "version": "0.0.0-development",
   "author": "Pierre Vanduynslager (https://github.com/pvdlg)",
   "ava": {
-    "helpers": [
-      "test/helpers/**/*"
-    ],
     "files": [
       "test/*.test.js"
     ]
@@ -51,7 +48,7 @@
     "xo": "^0.25.3"
   },
   "engines": {
-    "node": ">=8.16"
+    "node": ">=10.18"
   },
   "files": [
     "index.js"
