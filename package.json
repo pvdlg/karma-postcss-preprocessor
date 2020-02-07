@@ -23,7 +23,7 @@
     "ava": "^3.1.0",
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
-    "codecov": "^3.0.0",
+    "codecov": "3.6.4",
     "conventional-changelog-metahub": "^4.0.0",
     "cssnano": "^4.0.0",
     "fs-extra": "^8.1.0",
