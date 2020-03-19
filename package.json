@@ -26,7 +26,7 @@
     "codecov": "^3.0.0",
     "conventional-changelog-metahub": "^4.0.0",
     "cssnano": "^4.0.0",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.0",
     "jasmine-core": "^3.0.0",
     "jasmine-jquery": "^2.1.1",
     "karma": "^4.4.1",
